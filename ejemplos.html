@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de Ciclo de Vida del Software - Modelo Cascada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .example-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background-color: #4e69a2;
+            color: white;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-content {
+            padding: 15px;
+            display: none;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .card.open .card-content {
+            display: block;
+        }
+
+        .card .icon {
+            font-size: 1.5rem;
+            color: #ffffff;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition: transform 0.3s;
+        }
+
+        .card.open .icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Ejemplos del Ciclo de Vida del Software - Modelo Cascada</h1>
+
+<div class="example-container">
+    <!-- Example 1 -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-header">
+            Recolección y Análisis de Requisitos
+            <span class="icon">&#9660;</span>
+        </div>
+        <div class="card-content">
+            <p>Una empresa desea un sistema de gestión de inventario. Durante la fase de recolección de requisitos, el equipo de desarrollo realiza entrevistas con los gerentes para entender sus necesidades. Se descubre que el sistema debe tener opciones para registrar productos, monitorear inventario en tiempo real y emitir alertas.</p>
+        </div>
+    </div>
+
+    <!-- Example 2 -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-header">
+            Diseño del Sistema
+            <span class="icon">&#9660;</span>
+        </div>
+        <div class="card-content">
+            <p>En un proyecto bancario, el equipo decide dividir la arquitectura en módulos para mejorar la seguridad. Durante la fase de diseño, crean un plan para organizar las funciones: un módulo para cuentas de usuario, otro para transacciones y uno para alertas. Además, diagramas de flujo ilustran cómo se comunicarán los módulos.</p>
+        </div>
+    </div>
+
+    <!-- Example 3 -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-header">
+            Implementación
+            <span class="icon">&#9660;</span>
+        </div>
+        <div class="card-content">
+            <p>En la fase de implementación para un software de reservas de hoteles, los desarrolladores codifican funciones para que los clientes busquen habitaciones disponibles, realicen reservaciones y cancelen reservas. Siguen el diseño aprobado para asegurar una integración adecuada de todas las funciones.</p>
+        </div>
+    </div>
+
+    <!-- Example 4 -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-header">
+            Pruebas
+            <span class="icon">&#9660;</span>
+        </div>
+        <div class="card-content">
+            <p>Una vez implementado un sistema de gestión de personal, el equipo realiza pruebas unitarias y de integración para asegurar que cada módulo funcione correctamente y en conjunto. Los errores identificados se corrigen para cumplir con los estándares de calidad del cliente.</p>
+        </div>
+    </div>
+
+    <!-- Example 5 -->
+    <div class="card" onclick="toggleCard(this)">
+        <div class="card-header">
+            Mantenimiento
+            <span class="icon">&#9660;</span>
+        </div>
+        <div class="card-content">
+            <p>Después de lanzar un sistema de facturación, el equipo recibe comentarios sobre un problema con los descuentos. Durante la fase de mantenimiento, actualizan el sistema para corregir el error y añaden una nueva funcionalidad para generar reportes mensuales.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleCard(card) {
+        card.classList.toggle('open');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sopa de Letras - Ciclo de Vida del Software</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .word-search {
+            display: grid;
+            grid-template-columns: repeat(10, 40px);
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #333;
+            font-size: 1.2rem;
+            color: #333;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s;
+        }
+
+        .cell.selected {
+            background-color: #7fffd4;
+        }
+
+        .word-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .word-list li {
+            font-size: 1.1rem;
+            color: #333;
+            text-transform: capitalize;
+        }
+
+        .found {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sopa de Letras - Ciclo de Vida del Software</h1>
+    <div class="word-search">
+        <!-- Tablero de la sopa de letras generado en JavaScript -->
+    </div>
+    <h2>Palabras clave</h2>
+    <ul class="word-list">
+        <li data-word="PLANEACION">Planeación</li>
+        <li data-word="REQUISITOS">Requisitos</li>
+        <li data-word="DISEÑO">Diseño</li>
+        <li data-word="IMPLEMENTACION">Implementación</li>
+        <li data-word="PRUEBAS">Pruebas</li>
+        <li data-word="DESPLIEGUE">Despliegue</li>
+        <li data-word="MANTENIMIENTO">Mantenimiento</li>
+        <li data-word="OPTIMIZACION">Optimización</li>
+        <li data-word="ARQUITECTURA">Arquitectura</li>
+        <li data-word="DOCUMENTACION">Documentación</li>
+    </ul>
+</div>
+
+<script>
+    const grid = [
+        ['P', 'L', 'A', 'N', 'E', 'A', 'C', 'I', 'O', 'N'],
+        ['A', 'R', 'Q', 'U', 'I', 'T', 'E', 'C', 'T', 'U'],
+        ['R', 'E', 'Q', 'U', 'I', 'S', 'I', 'T', 'O', 'S'],
+        ['O', 'P', 'T', 'I', 'M', 'I', 'Z', 'A', 'C', 'I'],
+        ['D', 'I', 'S', 'E', 'Ñ', 'O', 'L', 'E', 'E', 'M'],
+        ['O', 'D', 'O', 'C', 'U', 'M', 'E', 'N', 'T', 'A'],
+        ['P', 'R', 'U', 'E', 'B', 'A', 'S', 'T', 'D', 'E'],
+        ['M', 'A', 'N', 'T', 'E', 'N', 'I', 'M', 'I', 'E'],
+        ['N', 'C', 'I', 'O', 'N', 'I', 'M', 'P', 'L', 'E'],
+        ['T', 'A', 'A', 'N', 'N', 'I', 'O', 'S', 'E', 'S']
+    ];
+
+    const words = ["PLANEACION", "REQUISITOS", "DISEÑO", "IMPLEMENTACION", "PRUEBAS", "DESPLIEGUE", "MANTENIMIENTO", "OPTIMIZACION", "ARQUITECTURA", "DOCUMENTACION"];
+    let selectedCells = [];
+
+    const wordSearch = document.querySelector('.word-search');
+    const wordList = document.querySelectorAll('.word-list li');
+
+    function createGrid() {
+        grid.forEach((row, rowIndex) => {
+            row.forEach((letter, colIndex) => {
+                const cell = document.createElement('div');
+                cell.textContent = letter;
+                cell.classList.add('cell');
+                cell.dataset.row = rowIndex;
+                cell.dataset.col = colIndex;
+                cell.addEventListener('click', selectCell);
+                wordSearch.appendChild(cell);
+            });
+        });
+    }
+
+    function selectCell(event) {
+        const cell = event.target;
+        cell.classList.toggle('selected');
+        const cellPosition = `${cell.dataset.row},${cell.dataset.col}`;
+        
+        if (selectedCells.includes(cellPosition)) {
+            selectedCells = selectedCells.filter(pos => pos !== cellPosition);
+        } else {
+            selectedCells.push(cellPosition);
+        }
+        
+        checkWord();
+    }
+
+    function checkWord() {
+        const selectedWord = selectedCells.map(pos => {
+            const [row, col] = pos.split(',').map(Number);
+            return grid[row][col];
+        }).join('');
+
+        if (words.includes(selectedWord)) {
+            document.querySelector(`li[data-word="${selectedWord}"]`).classList.add('found');
+            selectedCells.forEach(pos => {
+                const [row, col] = pos.split(',');
+                document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`).classList.add('found');
+            });
+            selectedCells = [];
+            if (document.querySelectorAll('.found').length === words.length) {
+                alert("¡Felicidades! Has encontrado todas las palabras.");
+            }
+        }
+    }
+
+    createGrid();
+</script>
+
+</body>
+</html>
